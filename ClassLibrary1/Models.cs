@@ -32,9 +32,9 @@
 
     public class RiverCreator
     {
+        Random rnd = new Random();
         public List<River> CreateRivers(int amountOfRivers)
         {
-            Random rnd = new Random();
             List<River> riverList = new List<River>();
 
             for (int i = amountOfRivers; i > 0; i--)
@@ -53,6 +53,25 @@
             }
 
             return riverList;
+        }
+
+        public void UpdateRiver(River river)
+        {
+            //create RiverData randomly for given river
+            Guid riverID = river.Id;
+            double WaterLevel = rnd.Next(150, 600);
+            double Temperature = rnd.Next(0, 60);
+            double RainAmount = rnd.Next(25, 600);
+            DateTime DateTimeAdded = DateTime.Now;
+
+            //insert data into database
+            //-----------------------------
+
+            //update River obj
+            river.WaterLevel.Add(WaterLevel);
+            river.Temperature.Add(Temperature);
+            river.RainAmount.Add(RainAmount);
+            river.LastUpdate = DateTimeAdded;
         }
     }
 }
