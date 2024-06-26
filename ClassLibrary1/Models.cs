@@ -15,13 +15,25 @@
         public DateTime LastUpdate { get; set; }
     }
 
-    public class RiverCreator
+    public class RiverData
     {
-        Random rnd = new Random();
-        public List<River> CreateRivers(int amountOfRivers)
-        {
-            List<River> riverList = new List<River>();
+        public Guid RiverId { get; set; }
+        //in cm
+        public double WaterLevel { get; set; }
+        //in degrees c
+        public double Temperature { get; set; }
+        //in mm
+        public double RainAmount { get; set; }
+        public DateTime DateTimeAdded { get; set; }
+    }
 
+
+    //the class below is just an example and needs to be changed
+    /*public class DataUpdater
+    {
+        //logic for updating WaterLevel, Temperature, RainAmount every 15 min in river object
+        private River river;
+        public DataUpdater(River river) 
             for (int i = amountOfRivers; i > 0; i--)
             {
                 River newRiver = new River();
@@ -42,6 +54,12 @@
 
         public River UpdateRiver(River river)
         {
+            this.river = river;
+        }
+
+        public void Update() 
+        { }*/
+
             //create RiverData randomly for given river
             Guid riverID = river.Id;
             double WaterLevel = rnd.Next(150, 600);
