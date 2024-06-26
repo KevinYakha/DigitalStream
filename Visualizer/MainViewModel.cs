@@ -48,17 +48,23 @@ namespace Visualizer
             // -------- X-Axis Labels --------
             DateTimeAxis dateTimeAxis = new()
             {
-                 Position = AxisPosition.Bottom,
-                 StringFormat = "dd/MM HH:mm",
-                 Key = "xDate",
-                 Title = "DateTime"
+                Position = AxisPosition.Bottom,
+                IsPanEnabled = false,
+                IsZoomEnabled = false,
+                StringFormat = "dd/MM HH:mm",
+                Key = "xDate",
+                Title = "DateTime"
             };
 
             CategoryAxis rainDateTimeAxis = new()
             {
-                 Position = AxisPosition.Bottom,
-                 IsAxisVisible = false,
-                 Key = "yBar"
+                Position = AxisPosition.Bottom,
+                ItemsSource = dateTimes,
+                IsPanEnabled = false,
+                IsZoomEnabled = false,
+                StringFormat = "dd/MM HH:mm",
+                IsAxisVisible = false,
+                Key = "yBar"
             };
 
             // -------- Y-Axis Labels --------
@@ -67,6 +73,10 @@ namespace Visualizer
                 Position = AxisPosition.Left,
                 Minimum = 250,
                 Maximum = 350,
+                AxislineColor = OxyColors.Blue,
+                TextColor = OxyColors.Blue,
+                IsPanEnabled = false,
+                IsZoomEnabled = false,
                 StringFormat = "0.00 cm",
                 Title = "Water level in cm",
                 Key = "yWaterLevel"
@@ -77,8 +87,13 @@ namespace Visualizer
                 Position = AxisPosition.Left,
                 Minimum = 10,
                 Maximum = 30,
+                PositionTier = 1,
+                AxislineColor = OxyColors.Green,
+                TextColor = OxyColors.Green,
+                IsPanEnabled = false,
+                IsZoomEnabled = false,
                 StringFormat = "0.00 \u00b0C",
-                Title = "Water level in \u00b0C",
+                Title = "Temperature in \u00b0C",
                 Key = "yTemperature"
             };
 
@@ -89,6 +104,10 @@ namespace Visualizer
                 MinimumPadding = 0.06,
                 MaximumPadding = 0.06,
                 ExtraGridlines = [0d],
+                AxislineColor = OxyColors.LightBlue,
+                TextColor = OxyColors.LightBlue,
+                IsPanEnabled = false,
+                IsZoomEnabled = false,
                 StringFormat = "0.00 mm/m\u00b2",
                 Title = "Rain amount in mm/m\u00b2",
                 Key = "xRainAmount"
@@ -128,6 +147,8 @@ namespace Visualizer
             {
                 ItemsSource = rainAmountDataPoints,
                 FillColor = OxyColors.LightBlue,
+                LabelPlacement = LabelPlacement.Inside,
+                LabelFormatString = "{0:.00} mm/m\u00b2",
                 XAxisKey = "xRainAmount",
                 YAxisKey = "yBar"
             };
