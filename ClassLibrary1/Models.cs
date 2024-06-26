@@ -50,7 +50,7 @@
             DateTime DateTimeAdded = DateTime.Now;
 
             //insert data into database
-            //-----------------------------
+            //-------------------------
 
             //update River obj
             river.WaterLevel.Add(WaterLevel);
