@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[GET_RiverDataByRiverId]
-    @RiverId NVARCHAR(250)
+    @RiverId UNIQUEIDENTIFIER
 AS
 BEGIN
     SELECT RiverId, WaterLevel, Temperature, RainAmount, DateTimeAdded
