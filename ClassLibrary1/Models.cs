@@ -42,11 +42,10 @@
                 River newRiver = new River();
                 newRiver.Id = Guid.NewGuid();
                 newRiver.Name = $"River Number {(riverList.Count()) + 1}";
-                newRiver.WaterLevel.Add(rnd.Next(150, 600));
-                newRiver.Temperature.Add(rnd.Next(0, 60));
-                newRiver.RainAmount.Add(rnd.Next(15, 6000));
+                newRiver.WaterLevel.Add(0);
+                newRiver.Temperature.Add(0);
+                newRiver.RainAmount.Add(0);
                 newRiver.FloodLevel = rnd.Next(300, 600);
-                newRiver.LastUpdate = DateTime.Now;
 
                 //insert River into Database
 
