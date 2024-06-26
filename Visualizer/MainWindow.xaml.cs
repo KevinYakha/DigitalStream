@@ -19,6 +19,7 @@ namespace Visualizer
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainViewModel();
         }
     }
 }
