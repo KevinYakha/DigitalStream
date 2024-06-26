@@ -14,10 +14,22 @@
         public double FloodLevel { get; set; }
         public DateTime LastUpdate { get; set; }
     }
-    
+
+    public class RiverData
+    {
+        public string RiverId { get; set; }
+        //in cm
+        public double WaterLevel { get; set; }
+        //in degrees c
+        public double Temperature { get; set; }
+        //in mm
+        public double RainAmount { get; set; }
+        public DateTime DateTimeAdded { get; set; }
+    }
+
 
     //the class below is just an example and needs to be changed
-    public class DataUpdater
+    /*public class DataUpdater
     {
         //logic for updating WaterLevel, Temperature, RainAmount every 15 min in river object
         private River river;
@@ -27,5 +39,6 @@
         }
 
         public void Update() 
-        { }
+        { }*/
+
 }
