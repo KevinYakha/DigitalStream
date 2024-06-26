@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[INSERT_RiverData]
-    @RiverId INT,
+    @RiverId NVARCHAR(250),
     @WaterLevel FLOAT(53),
     @Temperature FLOAT(53),
     @RainAmount FLOAT(53),
