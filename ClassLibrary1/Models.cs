@@ -15,21 +15,6 @@
         public DateTime LastUpdate { get; set; }
     }
 
-
-    //the class below is just an example and needs to be changed
-    public class DataUpdater
-    {
-        //logic for updating WaterLevel, Temperature, RainAmount every 15 min in river object
-        private River river;
-        public DataUpdater(River river)
-        {
-            this.river = river;
-        }
-
-        public void Update()
-        { }
-    }
-
     public class RiverCreator
     {
         Random rnd = new Random();
