@@ -14,19 +14,19 @@
         public double FloodLevel { get; set; }
         public DateTime LastUpdate { get; set; }
     }
-    
+
 
     //the class below is just an example and needs to be changed
     public class DataUpdater
     {
         //logic for updating WaterLevel, Temperature, RainAmount every 15 min in river object
         private River river;
-        public DataUpdater(River river) 
+        public DataUpdater(River river)
         {
             this.river = river;
         }
 
-        public void Update() 
+        public void Update()
         { }
     }
 
@@ -37,16 +37,18 @@
             Random rnd = new Random();
             List<River> riverList = new List<River>();
 
-            for(int i = amountOfRivers, i > 0; i--)
+            for (int i = amountOfRivers; i > 0; i--)
             {
                 River newRiver = new River();
                 newRiver.Id = Guid.NewGuid();
-                newRiver.Name = $"River Number {(riverList.Count())+1}";
+                newRiver.Name = $"River Number {(riverList.Count()) + 1}";
                 newRiver.WaterLevel.Add(rnd.Next(150, 600));
                 newRiver.Temperature.Add(rnd.Next(0, 60));
                 newRiver.RainAmount.Add(rnd.Next(15, 6000));
                 newRiver.FloodLevel = rnd.Next(300, 600);
                 newRiver.LastUpdate = DateTime.Now;
+
+                //insert River into Database
 
                 riverList.Add(newRiver);
             }
@@ -54,3 +56,4 @@
             return riverList;
         }
     }
+}
