@@ -40,7 +40,7 @@
             return riverList;
         }
 
-        public void UpdateRiver(River river)
+        public River UpdateRiver(River river)
         {
             //create RiverData randomly for given river
             Guid riverID = river.Id;
@@ -57,6 +57,8 @@
             river.Temperature.Add(Temperature);
             river.RainAmount.Add(RainAmount);
             river.LastUpdate = DateTimeAdded;
+
+            return river;
         }
     }
 }
