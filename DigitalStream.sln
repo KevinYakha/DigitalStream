@@ -5,7 +5,7 @@ VisualStudioVersion = 17.11.35005.142
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database", "Database\Database.sqlproj", "{A08DAAA2-A266-4650-9848-EFD69375BBD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visualizer", "..\Visualizer\Visualizer.csproj", "{122394E4-C7EE-45E1-90D0-203FF4B0E55C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visualizer", "Visualizer\Visualizer.csproj", "{38AE8937-0218-4561-9D08-12782A17117D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +19,10 @@ Global
 		{A08DAAA2-A266-4650-9848-EFD69375BBD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A08DAAA2-A266-4650-9848-EFD69375BBD7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A08DAAA2-A266-4650-9848-EFD69375BBD7}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{122394E4-C7EE-45E1-90D0-203FF4B0E55C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{122394E4-C7EE-45E1-90D0-203FF4B0E55C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{122394E4-C7EE-45E1-90D0-203FF4B0E55C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{122394E4-C7EE-45E1-90D0-203FF4B0E55C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38AE8937-0218-4561-9D08-12782A17117D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38AE8937-0218-4561-9D08-12782A17117D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38AE8937-0218-4561-9D08-12782A17117D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38AE8937-0218-4561-9D08-12782A17117D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
