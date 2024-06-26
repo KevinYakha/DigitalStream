@@ -17,7 +17,7 @@
 
     public class RiverData
     {
-        public string RiverId { get; set; }
+        public Guid RiverId { get; set; }
         //in cm
         public double WaterLevel { get; set; }
         //in degrees c

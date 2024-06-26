@@ -66,5 +66,6 @@
     <Build Include="RiverData\RiverData.sql" />
     <Build Include="RiverData\INSERT_RiverData.sql" />
     <Build Include="RiverData\GET_RiverDataByRiverId.sql" />
+    <Build Include="Rivers\GET_AllRivers.sql" />
   </ItemGroup>
 </Project>
