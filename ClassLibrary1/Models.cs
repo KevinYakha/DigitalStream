@@ -28,4 +28,29 @@
 
         public void Update() 
         { }
-}
+    }
+
+    public class RiverCreator
+    {
+        public List<River> CreateRivers(int amountOfRivers)
+        {
+            Random rnd = new Random();
+            List<River> riverList = new List<River>();
+
+            for(int i = amountOfRivers, i > 0; i--)
+            {
+                River newRiver = new River();
+                newRiver.Id = Guid.NewGuid();
+                newRiver.Name = $"River Number {(riverList.Count())+1}";
+                newRiver.WaterLevel.Add(rnd.Next(150, 600));
+                newRiver.Temperature.Add(rnd.Next(0, 60));
+                newRiver.RainAmount.Add(rnd.Next(15, 6000));
+                newRiver.FloodLevel = rnd.Next(300, 600);
+                newRiver.LastUpdate = DateTime.Now;
+
+                riverList.Add(newRiver);
+            }
+
+            return riverList;
+        }
+    }
