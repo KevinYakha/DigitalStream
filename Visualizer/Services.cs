@@ -252,14 +252,14 @@ namespace Visualizer
                     conn.Close();
                     Console.WriteLine(e.Message);
                 }
-
+                UpdateRiver(newRiver);
                 riverList.Add(newRiver);
             }
 
             return riverList;
         }
 
-        public River UpdateRiver(River river)
+        public async Task<List<River>> UpdateRiver(River river)
         {
             //create RiverData randomly for given river
             RiverData riverData = new RiverData();
@@ -306,7 +306,10 @@ namespace Visualizer
             river.RainAmount.Add(RainAmount);
             river.LastUpdate = DateTimeAdded;
 
-            return river;
+            Services newService = new Services();
+            List<River> allRivers = await newService.GetAllRivers();
+
+            return allRivers;
         }
     }
 }
