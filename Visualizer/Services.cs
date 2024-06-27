@@ -280,12 +280,6 @@ namespace Visualizer
             DateTime DateTimeAdded = DateTime.Now;
             riverData.DateTimeAdded = DateTimeAdded;
 
-            //update River obj
-            river.WaterLevel.Add(WaterLevel);
-            river.Temperature.Add(Temperature);
-            river.RainAmount.Add(RainAmount);
-            river.LastUpdate = DateTimeAdded;
-
             //insert data into database
             SqlConnection conn = new SqlConnection(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING"));
             try
