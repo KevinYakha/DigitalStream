@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace Visualizer
 {
@@ -11,6 +6,8 @@ namespace Visualizer
     {
         public ButtonsViewModel()
         {
+            riverHandler = new();
+
             PreviousButtonCommand = new RelayCommand(PreviousButtonClicked);
             NextButtonCommand = new RelayCommand(NextButtonClicked);
             GenerateButtonCommand = new RelayCommand(GenerateButtonClicked);
@@ -19,24 +16,41 @@ namespace Visualizer
 
         private void PreviousButtonClicked()
         {
+            currentRiverIndex--;
+            if (currentRiverIndex < 0)
+            {
+                currentRiverIndex = ChartViewModel.riverCount - 1;
+            }
+            ChartViewModel.UpdateChart(currentRiverIndex);
         }
 
         private void NextButtonClicked()
         {
+            currentRiverIndex++;
+            if (currentRiverIndex > ChartViewModel.riverCount)
+            {
+                currentRiverIndex = 0;
+            }
+            ChartViewModel.UpdateChart(currentRiverIndex);
         }
 
         private void GenerateButtonClicked()
         {
+            riverHandler.CreateRivers(1);
         }
 
         private void UpdateButtonClicked()
         {
+            ChartViewModel.UpdateChart(currentRiverIndex);
         }
 
         public ICommand PreviousButtonCommand { get; private set; }
         public ICommand NextButtonCommand { get; private set; }
         public ICommand GenerateButtonCommand { get; private set; }
         public ICommand UpdateButtonCommand { get; private set; }
+
+        private RiverHandler riverHandler;
+        private int currentRiverIndex = 0;
     }
 
     public class RelayCommand : ICommand

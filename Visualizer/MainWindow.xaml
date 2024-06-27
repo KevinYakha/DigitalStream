@@ -13,10 +13,10 @@
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" Command="{Binding PreviousButtonCommand}" Content="Previous" Margin="10" Height="25" Width="60" HorizontalAlignment="Left"/>
-        <Button Grid.Row="0" Command="{Binding NextButtonCommand}" Content="Next" Margin="10" Height="25" Width="60" HorizontalAlignment="Right"/>
-        <oxy:PlotView Grid.Row="1" Model="{Binding riverPlot}"/>
-        <Button Grid.Row="2" Command="{Binding GenerateButtonCommand}" Content="Generate" Margin="10" Height="25" Width="60" HorizontalAlignment="Left"/>
-        <Button Grid.Row="2" Command="{Binding UpdateButtonCommand}" Content="Update" Margin="10" Height="25" Width="60" HorizontalAlignment="Right"/>
+        <Button Grid.Row="0" Command="{Binding buttonsViewModel.PreviousButtonCommand}" Content="Previous" Margin="10" Height="25" Width="60" HorizontalAlignment="Left"/>
+        <Button Grid.Row="0" Command="{Binding buttonsViewModel.NextButtonCommand}" Content="Next" Margin="10" Height="25" Width="60" HorizontalAlignment="Right"/>
+        <oxy:PlotView Grid.Row="1" Model="{Binding chartViewModel.riverPlot}"/>
+        <Button Grid.Row="2" Command="{Binding buttonsViewModel.GenerateButtonCommand}" Content="Generate" Margin="10" Height="25" Width="60" HorizontalAlignment="Left"/>
+        <Button Grid.Row="2" Command="{Binding buttonsViewModel.UpdateButtonCommand}" Content="Update" Margin="10" Height="25" Width="60" HorizontalAlignment="Right"/>
     </Grid>
 </Window>
