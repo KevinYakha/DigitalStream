@@ -8,18 +8,19 @@ namespace Visualizer
         {
             SqlConnectionStringBuilder builder = new()
             {
-                DataSource = "WIN-5NF47SRRT0I",
+                DataSource = "WIN-5EEDLGC0U7J",
                 InitialCatalog = "RiverData",
                 IntegratedSecurity = true,
                 Encrypt = true,
                 TrustServerCertificate = true
             };
             Environment.SetEnvironmentVariable("DB_CONNECTION_STRING", builder.ConnectionString);
-            chartViewModel = new();
-            buttonsViewModel = new();
+
+            chartViewModel = new ChartViewModel();
+            buttonsViewModel = new ButtonsViewModel();
         }
 
-        ChartViewModel chartViewModel;
-        ButtonsViewModel buttonsViewModel;
+        public ChartViewModel chartViewModel { get; private set; }
+        public ButtonsViewModel buttonsViewModel { get; private set; }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Data.SqlClient;
-
-namespace Models
+﻿namespace Models
 {
     //this class remains unchanged unless discussed together to avoid inconsistencies in database
     public class River

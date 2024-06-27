@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.SqlClient;
 using Models;
 
 namespace Visualizer
@@ -47,7 +42,7 @@ namespace Visualizer
 
 
                 // get riverDataList from GetRiverData and create the lists of river object
-                List<RiverData> riverDataList = await GetRiverData(river.Id);
+                List<RiverData> riverDataList = GetRiverData(river.Id);
                 if (riverDataList != null)
                 {
                     river.WaterLevel = riverDataList.Select(i => i.WaterLevel).ToList();
@@ -67,7 +62,7 @@ namespace Visualizer
 
 
         //get specific river data entries from RiverData table
-        public async Task<List<RiverData>> GetRiverData(Guid riverId)
+        public List<RiverData> GetRiverData(Guid riverId)
         {
             RiverData riverData = new RiverData
             {
@@ -79,11 +74,12 @@ namespace Visualizer
 
             try
             {
-                await conn.OpenAsync();
+                conn.Open();
                 SqlCommand cmd = new SqlCommand("GET_RiverDataByRiverId", conn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                SqlDataReader reader = await cmd.ExecuteReaderAsync();
+                cmd.Parameters.AddWithValue("RiverId", riverId);
+                SqlDataReader reader = cmd.ExecuteReader();
 
                 if (!reader.HasRows)
                 {
@@ -91,10 +87,11 @@ namespace Visualizer
                 }
 
                 var riverDataList = new List<RiverData>();
-                while (await reader.ReadAsync())
+                while (reader.Read())
                 {
                     riverDataList.Add(new RiverData()
                     {
+                        RiverId = reader.GetGuid(0),
                         WaterLevel = reader.GetDouble(1),
                         Temperature = reader.GetDouble(2),
                         RainAmount = reader.GetDouble(3),
@@ -102,13 +99,13 @@ namespace Visualizer
                     });
 
                 }
-                await conn.CloseAsync();
+                conn.Close();
 
                 return riverDataList;
             }
             catch (Exception e)
             {
-                await conn.CloseAsync();
+                conn.Close();
                 return null;
             }
         }
@@ -121,7 +118,7 @@ namespace Visualizer
 
                 try
                 {
-                    await conn.OpenAsync();
+                    conn.Open();
                     SqlCommand cmd = new SqlCommand("GET_AllRivers", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
@@ -144,13 +141,13 @@ namespace Visualizer
                         });
 
                     }
-                    await conn.CloseAsync();
+                    conn.Close();
 
 
                 // get riverDataList from GetRiverData and create the lists of each river object
                 foreach (River river in rivers)
                 {
-                    List<RiverData> riverDataList = await GetRiverData(river.Id);
+                    List<RiverData> riverDataList = GetRiverData(river.Id);
                     if (riverDataList != null)
                     {
                         river.WaterLevel = riverDataList.Select(i => i.WaterLevel).ToList();
@@ -237,7 +234,7 @@ namespace Visualizer
                 SqlConnection conn = new SqlConnection(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING"));
                 try
                 {
-                    conn.Open();
+                    await conn.OpenAsync();
                     SqlCommand cmd = new SqlCommand("INSERT_River", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("Id", newRiver.Id);
@@ -245,13 +242,13 @@ namespace Visualizer
                     cmd.Parameters.AddWithValue("FloodLevel", newRiver.FloodLevel);
                     cmd.Parameters.AddWithValue("LastUpdate", newRiver.LastUpdate);
 
-                    var result = cmd.ExecuteNonQuery();
+                    var result = await cmd.ExecuteNonQueryAsync();
 
-                    conn.Close();
+                    await conn.CloseAsync();
                 }
                 catch (Exception e)
                 {
-                    conn.Close();
+                    await conn.CloseAsync();
                     Console.WriteLine(e.Message);
                 }
                 var restult = UpdateRiver(newRiver);
@@ -284,7 +281,7 @@ namespace Visualizer
             SqlConnection conn = new SqlConnection(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING"));
             try
             {
-                conn.Open();
+                await conn.OpenAsync();
                 SqlCommand cmd = new SqlCommand("INSERT_RiverData", conn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("RiverId", riverData.RiverId);
@@ -293,12 +290,12 @@ namespace Visualizer
                 cmd.Parameters.AddWithValue("RainAmount", riverData.RainAmount);
                 cmd.Parameters.AddWithValue("DateTimeAdded", riverData.DateTimeAdded);
 
-                var result = cmd.ExecuteNonQuery();
-                conn.Close();
+                var result = await cmd.ExecuteNonQueryAsync();
+                await conn.CloseAsync();
             }
             catch (Exception e)
             {
-                conn.Close();
+                await conn.CloseAsync();
                 Console.WriteLine(e.Message);
             }
 

@@ -6,6 +6,6 @@
     @DateTimeAdded DATETIME
 AS
 BEGIN
-    INSERT INTO [dbo].[RiverData] (RiverId, WaterLevel, Temperature, RainAmount, DateTimeAdded)
-    VALUES (@RiverId, @WaterLevel, @Temperature, @RainAmount, @DateTimeAdded);
+    INSERT INTO [dbo].[RiverData] (Id, RiverId, WaterLevel, Temperature, RainAmount, DateTimeAdded)
+    VALUES (NEWID(), @RiverId, @WaterLevel, @Temperature, @RainAmount, @DateTimeAdded);
 END

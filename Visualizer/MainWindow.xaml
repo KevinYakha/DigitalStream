@@ -7,11 +7,14 @@
         xmlns:local="clr-namespace:Visualizer"
         mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="1200">
+    <Window.DataContext>
+        <local:MainViewModel/>
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
             <RowDefinition/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="45"/>
         </Grid.RowDefinitions>
         <Button Grid.Row="0" Command="{Binding buttonsViewModel.PreviousButtonCommand}" Content="Previous" Margin="10" Height="25" Width="60" HorizontalAlignment="Left"/>
         <Button Grid.Row="0" Command="{Binding buttonsViewModel.NextButtonCommand}" Content="Next" Margin="10" Height="25" Width="60" HorizontalAlignment="Right"/>
