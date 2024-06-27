@@ -220,7 +220,7 @@ namespace Visualizer
     public class RiverHandler
     {
         Random rnd = new Random();
-        public List<River> CreateRivers(int amountOfRivers)
+        public async Task<List<River>> CreateRivers(int amountOfRivers)
         {
             List<River> riverList = new List<River>();
 
@@ -253,7 +253,7 @@ namespace Visualizer
                     conn.Close();
                     Console.WriteLine(e.Message);
                 }
-                UpdateRiver(newRiver);
+                var restult = await UpdateRiver(newRiver);
                 riverList.Add(newRiver);
             }
 
