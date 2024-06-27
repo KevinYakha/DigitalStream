@@ -230,6 +230,7 @@ namespace Visualizer
                 newRiver.Id = Guid.NewGuid();
                 newRiver.Name = $"River Number {(riverList.Count()) + 1}";
                 newRiver.FloodLevel = rnd.Next(300, 600);
+                newRiver.LastUpdate = DateTime.Now;
 
                 //insert River into Database
                 SqlConnection conn = new SqlConnection(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING"));
@@ -277,6 +278,7 @@ namespace Visualizer
 
             DateTime DateTimeAdded = DateTime.Now;
             riverData.DateTimeAdded = DateTimeAdded;
+            river.LastUpdate = DateTimeAdded;
 
             //insert data into database
             SqlConnection conn = new SqlConnection(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING"));
