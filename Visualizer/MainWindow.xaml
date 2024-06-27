@@ -8,6 +8,15 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="1200">
     <Grid>
-        <oxy:PlotView Model="{Binding riverPlot}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0" x:Name="PreviousButton" Content="Previous" Margin="10" Height="25" Width="60" HorizontalAlignment="Left"/>
+        <Button Grid.Row="0" x:Name="NextButton" Content="Next" Margin="10" Height="25" Width="60" HorizontalAlignment="Right"/>
+        <oxy:PlotView Grid.Row="1" Model="{Binding riverPlot}"/>
+        <Button Grid.Row="2" x:Name="GenerateButton" Content="Generate" Margin="10" Height="25" Width="60" HorizontalAlignment="Left"/>
+        <Button Grid.Row="2" x:Name="UpdateButton" Content="Update" Margin="10" Height="25" Width="60" HorizontalAlignment="Right"/>
     </Grid>
 </Window>
