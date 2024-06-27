@@ -257,7 +257,7 @@ namespace Visualizer
                     conn.Close();
                     Console.WriteLine(e.Message);
                 }
-                var restult = await UpdateRiver(newRiver);
+                var restult = UpdateRiver(newRiver);
                 riverList.Add(newRiver);
             }
 
