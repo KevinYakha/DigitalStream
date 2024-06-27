@@ -69,12 +69,7 @@ namespace Visualizer
         //get specific river data entries from RiverData table
         public async Task<List<RiverData>> GetRiverData(Guid riverId)
         {
-            RiverData riverData = new RiverData
-            {
-                RiverId = riverId
-            };
-
-
+           
             SqlConnection conn = new SqlConnection(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING")); // placeholder
 
             try
@@ -82,6 +77,7 @@ namespace Visualizer
                 await conn.OpenAsync();
                 SqlCommand cmd = new SqlCommand("GET_RiverDataByRiverId", conn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue(parameterName: "@RiverId", riverId);
 
                 SqlDataReader reader = await cmd.ExecuteReaderAsync();
 
@@ -95,6 +91,7 @@ namespace Visualizer
                 {
                     riverDataList.Add(new RiverData()
                     {
+                        RiverId = riverId,
                         WaterLevel = reader.GetDouble(1),
                         Temperature = reader.GetDouble(2),
                         RainAmount = reader.GetDouble(3),

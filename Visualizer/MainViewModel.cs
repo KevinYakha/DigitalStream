@@ -8,8 +8,8 @@ namespace Visualizer
         {
             SqlConnectionStringBuilder builder = new()
             {
-                DataSource = "WIN-5NF47SRRT0I",
-                InitialCatalog = "RiverData",
+                DataSource = "DESKTOP-CUM9PGM",
+                InitialCatalog = "RiverDatabase",
                 IntegratedSecurity = true,
                 Encrypt = true,
                 TrustServerCertificate = true
