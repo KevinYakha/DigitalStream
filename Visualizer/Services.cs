@@ -38,8 +38,8 @@ namespace Visualizer
                 {
                     {
                         river.Id = reader.GetGuid(0);
-                        river.FloodLevel = await reader.IsDBNullAsync(6) ? 0 : reader.GetDouble(5);
-                        river.LastUpdate = await reader.IsDBNullAsync(7) ? null : reader.GetDateTime(6);
+                        river.FloodLevel = await reader.IsDBNullAsync(2) ? 0 : reader.GetDouble(5);
+                        river.LastUpdate = await reader.IsDBNullAsync(3) ? null : reader.GetDateTime(6);
                     };
 
                 }
@@ -139,8 +139,8 @@ namespace Visualizer
                         {
                             Id = reader.GetGuid(0),
                             Name = reader.GetString(1),
-                            FloodLevel = await reader.IsDBNullAsync(6) ? 0 : reader.GetDouble(5),
-                            LastUpdate = await reader.IsDBNullAsync(7) ? null : reader.GetDateTime(6)
+                            FloodLevel = await reader.IsDBNullAsync(2) ? 0 : reader.GetDouble(5),
+                            LastUpdate = await reader.IsDBNullAsync(3) ? null : reader.GetDateTime(6)
                         });
 
                     }
