@@ -36,7 +36,7 @@ namespace Visualizer
 
         private void GenerateButtonClicked()
         {
-            riverHandler.CreateRivers(1);
+            ChartViewModel.GenerateDataPoint(currentRiverIndex);
         }
 
         private void UpdateButtonClicked()

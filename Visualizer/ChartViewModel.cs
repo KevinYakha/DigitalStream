@@ -10,14 +10,12 @@ namespace Visualizer
         public ChartViewModel()
         {
             // Retrieves all rivers and displays the first in the list
-            riverHandler.UpdateRiver();
-            riverCount = rivers.Count;
             UpdateChart(0);
         }
 
-        public static void UpdateChart(int riverIndex)
+        public static async void UpdateChart(int riverIndex)
         {
-            rivers = riverHandler.UpdateRiver();
+            rivers = await services.GetAllRivers();
             riverCount = rivers.Count;
             riverPlot.Title = rivers[riverIndex].Name;
 
@@ -26,6 +24,11 @@ namespace Visualizer
             UpdateSeries(riverIndex);
 
             riverPlot.InvalidatePlot(true);
+        }
+
+        public static void GenerateDataPoint(int riverIndex)
+        {
+            Task.Run(async () => await riverHandler.UpdateRiver(rivers[riverIndex]));
         }
 
         private static void UpdateDataPoints(int riverIndex)
@@ -194,9 +197,10 @@ namespace Visualizer
             riverPlot.Series.Add(waterLevelLine);
             riverPlot.Series.Add(temperatureLine);
         }
-        
-        private static PlotModel riverPlot = new();
+
+        private static Services services = new();
         private static RiverHandler riverHandler = new();
+        private static PlotModel riverPlot = new();
         private static List<River> rivers = [];
         private static int numberOfRivers = 5;
         private static List<DateTime> dateTimes = [];
