@@ -125,7 +125,7 @@ namespace Visualizer
                     SqlCommand cmd = new SqlCommand("GET_AllRivers", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    SqlDataReader reader = await cmd.ExecuteReaderAsync();
+                    SqlDataReader reader = cmd.ExecuteReader();
 
                     if (!reader.HasRows)
                     {
@@ -139,8 +139,8 @@ namespace Visualizer
                         {
                             Id = reader.GetGuid(0),
                             Name = reader.GetString(1),
-                            FloodLevel = await reader.IsDBNullAsync(2) ? 0 : reader.GetDouble(5),
-                            LastUpdate = await reader.IsDBNullAsync(3) ? null : reader.GetDateTime(6)
+                            FloodLevel = await reader.IsDBNullAsync(2) ? 0 : reader.GetDouble(2),
+                            LastUpdate = await reader.IsDBNullAsync(3) ? null : reader.GetDateTime(3)
                         });
 
                     }
@@ -148,7 +148,7 @@ namespace Visualizer
 
 
                     // get allRiverDataList from GetRiverData and create the lists of river object
-                    List<RiverData> allRiverDataList = await GetAllRiverData();
+                    List<RiverData> allRiverDataList = GetAllRiverData(rivers);
                     if (allRiverDataList != null)
                     {
                         foreach (River river in rivers) 
@@ -174,27 +174,30 @@ namespace Visualizer
 
 
             // get all entries from RiverData-table
-            public async Task<List<RiverData>> GetAllRiverData()
+            public List<RiverData> GetAllRiverData(List<River> rivers)
             {
 
                 SqlConnection conn = new SqlConnection(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING")); // placeholder
 
                 try
                 {
-                    await conn.OpenAsync();
+                    conn.Open();
+                    var allRiverDataList = new List<RiverData>();
+                for (int i = 0; i < rivers.Count; i++)
+                {
                     SqlCommand cmd = new SqlCommand("GET_RiverDataByRiverId", conn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    SqlDataReader reader = await cmd.ExecuteReaderAsync();
+                    cmd.Parameters.AddWithValue("RiverId", rivers[i].Id);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
 
                     if (!reader.HasRows)
                     {
                         return null;
                     }
 
-                    var allRiverDataList = new List<RiverData>();
-                    while (await reader.ReadAsync())
-                    {
+                    reader.Read();
                         allRiverDataList.Add(new RiverData()
                         {
                             RiverId = reader.GetGuid(0),
@@ -203,15 +206,16 @@ namespace Visualizer
                             RainAmount = reader.GetDouble(3),
                             DateTimeAdded = reader.GetDateTime(4)
                         });
+                    reader.Close();
 
-                    }
-                    await conn.CloseAsync();
+                }
+                    conn.Close();
 
                     return allRiverDataList;
                 }
                 catch (Exception e)
                 {
-                    await conn.CloseAsync();
+                    conn.Close();
                     return null;
                 }
             }
