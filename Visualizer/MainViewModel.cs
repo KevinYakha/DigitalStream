@@ -10,13 +10,13 @@ namespace Visualizer
     {
         public MainViewModel()
         {
-            rivers = riverCreator.CreateRivers(numberOfRivers);
+            rivers = riverHandler.CreateRivers(numberOfRivers);
 
             for (int j = 0; j < 30; j++)
             {
                 for (int i = 0; i < numberOfRivers; i++)
                 {
-                    riverCreator.UpdateRiver(rivers[i]);
+                    riverHandler.UpdateRiver(rivers[i]);
                 }
             }
 
@@ -179,7 +179,7 @@ namespace Visualizer
         public PlotModel riverPlot {  get; private set; }
 
         int numberOfRivers = 5;
-        RiverCreator riverCreator = new RiverCreator();
+        RiverHandler riverHandler = new();
         List<River> rivers = new List<River>();
 
         List<DateTime> dateTimes = new();
