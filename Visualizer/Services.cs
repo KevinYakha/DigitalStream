@@ -111,12 +111,12 @@ namespace Visualizer
                 await conn.CloseAsync();
                 return null;
             }
-
+        }
 
 
             public async Task<List<River>> GetAllRivers()
             {
-                var rivers = new List<River>;
+            var rivers = new List<River>();
                 SqlConnection conn = new SqlConnection(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING")); // placeholder
 
                 try
@@ -148,10 +148,10 @@ namespace Visualizer
 
 
                     // get allRiverDataList from GetRiverData and create the lists of river object
-                    List<RiverData> allRiverDataList = await GetRiverData();
+                    List<RiverData> allRiverDataList = await GetAllRiverData();
                     if (allRiverDataList != null)
                     {
-                        foreach (river in rivers)
+                        foreach (River river in rivers) 
                         {
                             var filteredData = allRiverDataList.Where(i => i.RiverId == river.Id).ToList();
                             river.WaterLevel = filteredData.Select(i => i.WaterLevel).ToList();
@@ -195,7 +195,7 @@ namespace Visualizer
                     var allRiverDataList = new List<RiverData>();
                     while (await reader.ReadAsync())
                     {
-                        riverDataList.Add(new RiverData()
+                        allRiverDataList.Add(new RiverData()
                         {
                             RiverId = reader.GetGuid(0),
                             WaterLevel = reader.GetDouble(1),
