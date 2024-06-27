@@ -216,4 +216,100 @@ namespace Visualizer
                 }
             }
         }
+
+    public class RiverHandler
+    {
+        Random rnd = new Random();
+        public List<River> CreateRivers(int amountOfRivers)
+        {
+            List<River> riverList = new List<River>();
+
+            for (int i = amountOfRivers; i > 0; i--)
+            {
+                River newRiver = new River();
+                newRiver.Id = Guid.NewGuid();
+                newRiver.Name = $"River Number {(riverList.Count()) + 1}";
+                newRiver.WaterLevel.Add(0);
+                newRiver.Temperature.Add(0);
+                newRiver.RainAmount.Add(0);
+                newRiver.FloodLevel = rnd.Next(300, 600);
+
+                //insert River into Database
+                SqlConnection conn = new SqlConnection("connstring");
+                try
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("INSERT_River", conn);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("Id", newRiver.Id);
+                    cmd.Parameters.AddWithValue("Name", newRiver.Name);
+                    cmd.Parameters.AddWithValue("FloodLevel", newRiver.FloodLevel);
+                    cmd.Parameters.AddWithValue("LastUpdate", newRiver.LastUpdate);
+
+                    var result = cmd.ExecuteNonQuery();
+
+                    conn.Close();
+                }
+                catch (Exception e)
+                {
+                    conn.Close();
+                    Console.WriteLine(e.Message);
+                }
+
+                riverList.Add(newRiver);
+            }
+
+            return riverList;
+        }
+
+        public River UpdateRiver(River river)
+        {
+            //create RiverData randomly for given river
+            RiverData riverData = new RiverData();
+
+            riverData.RiverId = river.Id;
+
+            double WaterLevel = rnd.Next(150, 600);
+            riverData.WaterLevel = WaterLevel;
+
+            double Temperature = rnd.Next(0, 60);
+            riverData.Temperature = Temperature;
+
+            double RainAmount = rnd.Next(25, 600);
+            riverData.RainAmount = RainAmount;
+
+            DateTime DateTimeAdded = DateTime.Now;
+            riverData.DateTimeAdded = DateTimeAdded;
+
+            //insert data into database
+            SqlConnection conn = new SqlConnection("connstring");
+            try
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("INSERT_RiverData", conn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("RiverId", riverData.RiverId);
+                cmd.Parameters.AddWithValue("WaterLevel", riverData.WaterLevel);
+                cmd.Parameters.AddWithValue("Temperature", riverData.Temperature);
+                cmd.Parameters.AddWithValue("RainAmount", riverData.RainAmount);
+                cmd.Parameters.AddWithValue("DateTimeAdded", riverData.DateTimeAdded);
+
+                var result = cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                Console.WriteLine(e.Message);
+            }
+
+            //update River obj
+            river.WaterLevel.Add(WaterLevel);
+            river.Temperature.Add(Temperature);
+            river.RainAmount.Add(RainAmount);
+            river.LastUpdate = DateTimeAdded;
+
+            return river;
+        }
     }
+}
