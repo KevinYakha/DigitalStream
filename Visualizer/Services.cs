@@ -232,7 +232,7 @@ namespace Visualizer
                 newRiver.FloodLevel = rnd.Next(300, 600);
 
                 //insert River into Database
-                SqlConnection conn = new SqlConnection("connstring");
+                SqlConnection conn = new SqlConnection(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING"));
                 try
                 {
                     conn.Open();
@@ -279,7 +279,7 @@ namespace Visualizer
             riverData.DateTimeAdded = DateTimeAdded;
 
             //insert data into database
-            SqlConnection conn = new SqlConnection("connstring");
+            SqlConnection conn = new SqlConnection(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING"));
             try
             {
                 conn.Open();
