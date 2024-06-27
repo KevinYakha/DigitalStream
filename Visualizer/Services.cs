@@ -282,6 +282,11 @@ namespace Visualizer
 
             DateTime DateTimeAdded = DateTime.Now;
             riverData.DateTimeAdded = DateTimeAdded;
+
+            //update River obj
+            river.WaterLevel.Add(WaterLevel);
+            river.Temperature.Add(Temperature);
+            river.RainAmount.Add(RainAmount);
             river.LastUpdate = DateTimeAdded;
 
             //insert data into database
@@ -305,12 +310,6 @@ namespace Visualizer
                 conn.Close();
                 Console.WriteLine(e.Message);
             }
-
-            //update River obj
-            river.WaterLevel.Add(WaterLevel);
-            river.Temperature.Add(Temperature);
-            river.RainAmount.Add(RainAmount);
-            river.LastUpdate = DateTimeAdded;
 
             Services newService = new Services();
             List<River> allRivers = await newService.GetAllRivers();
