@@ -147,20 +147,17 @@ namespace Visualizer
                     await conn.CloseAsync();
 
 
-                    // get allRiverDataList from GetRiverData and create the lists of river object
-                    List<RiverData> allRiverDataList = GetAllRiverData(rivers);
-                    if (allRiverDataList != null)
+                // get riverDataList from GetRiverData and create the lists of each river object
+                foreach (River river in rivers)
+                {
+                    List<RiverData> riverDataList = await GetRiverData(river.Id);
+                    if (riverDataList != null)
                     {
-                        foreach (River river in rivers) 
-                        {
-                            var filteredData = allRiverDataList.Where(i => i.RiverId == river.Id).ToList();
-                            river.WaterLevel = filteredData.Select(i => i.WaterLevel).ToList();
-                            river.Temperature = filteredData.Select(i => i.Temperature).ToList();
-                            river.RainAmount = filteredData.Select(i => i.RainAmount).ToList();
-                        }
-
+                        river.WaterLevel = riverDataList.Select(i => i.WaterLevel).ToList();
+                        river.Temperature = riverDataList.Select(i => i.Temperature).ToList();
+                        river.RainAmount = riverDataList.Select(i => i.RainAmount).ToList();
                     }
-
+                }
 
                     return rivers;
                 }
