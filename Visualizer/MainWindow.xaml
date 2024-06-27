@@ -6,7 +6,7 @@
         xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:local="clr-namespace:Visualizer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="700" Width="1200">
     <Grid>
         <oxy:PlotView Model="{Binding riverPlot}"/>
     </Grid>

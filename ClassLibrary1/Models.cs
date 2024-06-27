@@ -41,11 +41,12 @@ namespace Models
                 River newRiver = new River();
                 newRiver.Id = Guid.NewGuid();
                 newRiver.Name = $"River Number {(riverList.Count()) + 1}";
-                newRiver.WaterLevel.Add(0);
-                newRiver.Temperature.Add(0);
-                newRiver.RainAmount.Add(0);
+                newRiver.WaterLevel = [];
+                newRiver.Temperature = [];
+                newRiver.RainAmount = [];
                 newRiver.FloodLevel = rnd.Next(300, 600);
 
+                /*
                 //insert River into Database
                 SqlConnection conn = new SqlConnection("connstring");
                 try
@@ -67,6 +68,7 @@ namespace Models
                     conn.Close();
                     Console.WriteLine(e.Message);
                 }
+                */
 
                 riverList.Add(newRiver);
             }
@@ -93,6 +95,7 @@ namespace Models
             DateTime DateTimeAdded = DateTime.Now;
             riverData.DateTimeAdded = DateTimeAdded;
 
+            /*
             //insert data into database
             SqlConnection conn = new SqlConnection("connstring");
             try
@@ -114,6 +117,7 @@ namespace Models
                 conn.Close();
                 Console.WriteLine(e.Message);
             }
+            */
 
             //update River obj
             river.WaterLevel.Add(WaterLevel);
